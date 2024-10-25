@@ -2,6 +2,7 @@ package com.victoandrad.course.services;
 
 import com.victoandrad.course.entities.User;
 import com.victoandrad.course.repositories.UserRepository;
+import com.victoandrad.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class UserService {
         // O objeto Optional representa um valor que pode ou não estar presente
         // então se tentarmos procurar um user inexistente, o metodo get irá lançar uma exceção
 
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj) {
